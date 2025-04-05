@@ -22,3 +22,9 @@
 ### 8. Update App Component
 
 ### 9. Test
+
+### 10. Install Material UI
+
+### 11. Update global styles
+
+### 12. Redisign UI

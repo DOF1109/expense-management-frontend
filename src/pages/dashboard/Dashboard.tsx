@@ -1,38 +1,15 @@
 import ExpenseList from "../../components/ExpenseList";
-import { Expense } from "../../model/Expense";
+import useExpenses from "../../hooks/useExpenses";
 
 const Dashboard = () => {
-  const expenses: Expense[] = [
-    {
-      id: 1,
-      name: "Water bill",
-      amount: 200.0,
-      date: new Date().toDateString(),
-      category: "Utilities",
-      note: "Monthly water bill",
-    },
-    {
-      id: 2,
-      name: "Electricity bill",
-      amount: 150.0,
-      date: new Date().toDateString(),
-      category: "Utilities",
-      note: "Monthly water bill",
-    },
-    {
-      id: 3,
-      name: "Wifi and TV bill",
-      amount: 50.0,
-      date: new Date().toDateString(),
-      category: "Utilities",
-      note: "Monthly water bill",
-    },
-  ];
+  const { expenses, error, isLoading } = useExpenses();
 
   return (
-    <>
+    <div>
+      {isLoading && <p>Loading...</p>}
+      {error && <p>{error}</p>}
       <ExpenseList expenses={expenses} />
-    </>
+    </div>
   );
 };
 

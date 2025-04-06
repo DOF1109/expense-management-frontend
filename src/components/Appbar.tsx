@@ -5,22 +5,26 @@ import {
   Button,
   Container,
   IconButton,
+  Link,
   Menu,
   MenuItem,
+  styled,
   Toolbar,
   Tooltip,
   Typography,
 } from "@mui/material";
 import { MouseEvent, useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
-import AdbIcon from "@mui/icons-material/Adb";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 const Appbar = () => {
-  const pages = ["Products", "Pricing", "Blog"];
-  const settings = ["Profile", "Account", "Dashboard", "Logout"];
-
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+
+  const StyledLink = styled(Link)({
+    textDecoration: "none",
+    color: "inherit",
+  });
 
   const handleOpenNavMenu = (event: MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -41,10 +45,8 @@ const Appbar = () => {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
           <Typography
             variant="h6"
-            
             noWrap
             component="a"
             href="#app-bar-with-responsive-menu"
@@ -88,14 +90,15 @@ const Appbar = () => {
               onClose={handleCloseNavMenu}
               sx={{ display: { xs: "block", md: "none" } }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography sx={{ textAlign: "center" }}>{page}</Typography>
-                </MenuItem>
-              ))}
+              <MenuItem onClick={handleCloseNavMenu}>
+                <StyledLink href="#Home">Home</StyledLink>
+              </MenuItem>
+              <MenuItem onClick={handleCloseNavMenu}>
+                <StyledLink href="#Pricing">Pricing</StyledLink>
+              </MenuItem>
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+
           <Typography
             variant="h5"
             noWrap
@@ -114,21 +117,42 @@ const Appbar = () => {
           >
             LOGO
           </Typography>
+
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                {page}
-              </Button>
-            ))}
+            <Button
+              onClick={handleCloseNavMenu}
+              href="#Home"
+              sx={{
+                my: 2,
+                color: "white",
+                display: "block",
+                textTransform: "none",
+              }}
+            >
+              Home
+            </Button>
+            <Button
+              onClick={handleCloseNavMenu}
+              href="#Pricing"
+              sx={{
+                my: 2,
+                color: "white",
+                display: "block",
+                textTransform: "none",
+              }}
+            >
+              Pricing
+            </Button>
           </Box>
+
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+              <IconButton
+                onClick={handleOpenUserMenu}
+                sx={{ color: "white", p: 0 }}
+              >
+                {/* <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" /> */}
+                <AccountCircleIcon fontSize="large" />
               </IconButton>
             </Tooltip>
             <Menu
@@ -147,13 +171,12 @@ const Appbar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography sx={{ textAlign: "center" }}>
-                    {setting}
-                  </Typography>
-                </MenuItem>
-              ))}
+              <MenuItem onClick={handleCloseUserMenu}>
+                <StyledLink href="#Profile">Profile</StyledLink>
+              </MenuItem>
+              <MenuItem onClick={handleCloseUserMenu}>
+                <StyledLink href="#Logout">Logout</StyledLink>
+              </MenuItem>
             </Menu>
           </Box>
         </Toolbar>

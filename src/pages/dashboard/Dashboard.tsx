@@ -1,3 +1,4 @@
+import { Container, Typography } from "@mui/material";
 import ExpenseList from "../../components/ExpenseList";
 import useExpenses from "../../hooks/useExpenses";
 
@@ -5,11 +6,11 @@ const Dashboard = () => {
   const { expenses, error, isLoading } = useExpenses();
 
   return (
-    <div>
-      {isLoading && <p>Loading...</p>}
-      {error && <p>{error}</p>}
+    <Container component="main">
+      {isLoading && <Typography>Loading...</Typography>}
+      {error && <Typography>{error}</Typography>}
       <ExpenseList expenses={expenses} />
-    </div>
+    </Container>
   );
 };
 

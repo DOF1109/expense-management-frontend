@@ -26,7 +26,7 @@ const ExpenseList = ({ expenses }: Props) => {
 
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="Expenses table">
+      <Table sx={{ minWidth: 330 }} aria-label="Expenses table">
         <TableHead>
           <TableRow>
             <StyledTableCell align="center">

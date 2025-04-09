@@ -4,26 +4,20 @@ import {
   Button,
   Container,
   IconButton,
-  Link,
   Menu,
   MenuItem,
-  styled,
   Toolbar,
   Tooltip,
 } from "@mui/material";
 import { MouseEvent, useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import Logo from "./Logo";
+import Logo from "../common/Logo";
+import { NavLink } from "react-router-dom";
 
 const Appbar = () => {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
-
-  const StyledLink = styled(Link)({
-    textDecoration: "none",
-    color: "inherit",
-  });
 
   const handleOpenNavMenu = (event: MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -44,12 +38,11 @@ const Appbar = () => {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Link
-            href="#Home"
-            sx={{ display: { xs: "none", md: "flex" }, mr: 2 }}
-          >
-            <Logo />
-          </Link>
+          <Box sx={{ display: { xs: "none", md: "flex" }, mr: 2 }}>
+            <NavLink className="blank-link" to="/">
+              <Logo />
+            </NavLink>
+          </Box>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
@@ -79,25 +72,32 @@ const Appbar = () => {
               sx={{ display: { xs: "block", md: "none" } }}
             >
               <MenuItem onClick={handleCloseNavMenu}>
-                <StyledLink href="#Home">Home</StyledLink>
+                <NavLink className="blank-link" to="/">
+                  Tablero
+                </NavLink>
               </MenuItem>
               <MenuItem onClick={handleCloseNavMenu}>
-                <StyledLink href="#Pricing">Pricing</StyledLink>
+                <NavLink className="blank-link" to="/new">
+                  Nuevo gasto
+                </NavLink>
+              </MenuItem>
+              <MenuItem onClick={handleCloseNavMenu}>
+                <NavLink className="blank-link" to="/reports">
+                  Reportes
+                </NavLink>
               </MenuItem>
             </Menu>
           </Box>
 
-          <Link
-            href="#Home"
-            sx={{ display: { xs: "flex", md: "none" }, flexGrow: 1 }}
-          >
-            <Logo />
-          </Link>
+          <Box sx={{ display: { xs: "flex", md: "none" }, flexGrow: 1 }}>
+            <NavLink className="blank-link" to="/">
+              <Logo />
+            </NavLink>
+          </Box>
 
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             <Button
               onClick={handleCloseNavMenu}
-              href="#Home"
               sx={{
                 my: 2,
                 color: "white",
@@ -105,11 +105,12 @@ const Appbar = () => {
                 textTransform: "none",
               }}
             >
-              Home
+              <NavLink className="blank-link" to="/">
+                Tablero
+              </NavLink>
             </Button>
             <Button
               onClick={handleCloseNavMenu}
-              href="#Pricing"
               sx={{
                 my: 2,
                 color: "white",
@@ -117,12 +118,27 @@ const Appbar = () => {
                 textTransform: "none",
               }}
             >
-              Pricing
+              <NavLink className="blank-link" to="/new">
+                Nuevo gasto
+              </NavLink>
+            </Button>
+            <Button
+              onClick={handleCloseNavMenu}
+              sx={{
+                my: 2,
+                color: "white",
+                display: "block",
+                textTransform: "none",
+              }}
+            >
+              <NavLink className="blank-link" to="/reports">
+                Reportes
+              </NavLink>
             </Button>
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
+            <Tooltip title="Abrir configuración">
               <IconButton
                 onClick={handleOpenUserMenu}
                 sx={{ color: "white", p: 0 }}
@@ -148,10 +164,14 @@ const Appbar = () => {
               onClose={handleCloseUserMenu}
             >
               <MenuItem onClick={handleCloseUserMenu}>
-                <StyledLink href="#Profile">Profile</StyledLink>
+                <NavLink className="blank-link" to="#Profile">
+                  Perfíl
+                </NavLink>
               </MenuItem>
               <MenuItem onClick={handleCloseUserMenu}>
-                <StyledLink href="#Logout">Logout</StyledLink>
+                <NavLink className="blank-link" to="/login">
+                  Cerrar sesión
+                </NavLink>
               </MenuItem>
             </Menu>
           </Box>

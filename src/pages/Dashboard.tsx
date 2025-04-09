@@ -1,6 +1,6 @@
 import { Container, Typography } from "@mui/material";
-import ExpenseList from "../../components/ExpenseList";
-import useExpenses from "../../hooks/useExpenses";
+import ExpenseList from "../components/common/ExpenseList";
+import useExpenses from "../hooks/useExpenses";
 
 const Dashboard = () => {
   const { expenses, error, isLoading } = useExpenses();

@@ -10,7 +10,7 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import { Expense } from "../model/Expense";
+import { Expense } from "../../model/Expense";
 
 interface Props {
   expenses: Expense[];

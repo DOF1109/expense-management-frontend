@@ -3,6 +3,7 @@
 ### 01. Install the necesary dependencies
 * Axios
 * React Router
+* Material UI
 
 ### 02. Configure Axios
 * Configure the API base URL and export the module
@@ -16,17 +17,11 @@
 
 ### 05. Create custom hook to fetch the expenses from API
 
-### 06. Create ExpenseList Component
+### 06. Create necesary components
 
-### 07. Create Dashboard Component
+### 07. Create global styles
 
-### 08. Update App Component
-
-### 09. Install Material UI
-
-### 10. Update global styles
-
-### 11. Redisign UI
-
-### 12. Configure the Router
+### 08. Configure the Router
 * Use NavLink to navigate different pages
+
+### 09. Create Utils for date managment

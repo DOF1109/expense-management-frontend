@@ -11,6 +11,8 @@ import {
   Typography,
 } from "@mui/material";
 import { Expense } from "../../model/Expense";
+import DateUtil from "../../utils/DateUtil";
+import CurrencyUtil from "../../utils/CurrencyUtil";
 
 interface Props {
   expenses: Expense[];
@@ -47,8 +49,12 @@ const ExpenseList = ({ expenses }: Props) => {
                 <TableCell component="th" scope="row" align="center">
                   {expense.name}
                 </TableCell>
-                <TableCell align="center">$ {expense.amount}</TableCell>
-                <TableCell align="center">{expense.date}</TableCell>
+                <TableCell align="center">
+                  {CurrencyUtil.formatToArs(expense.amount)}
+                </TableCell>
+                <TableCell align="center">
+                  {DateUtil.getFormatedDate(expense.date)}
+                </TableCell>
               </TableRow>
             );
           })}

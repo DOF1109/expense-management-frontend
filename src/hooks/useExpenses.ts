@@ -16,7 +16,7 @@ const useExpenses = () => {
       .finally(() => setIsLoading(false));
   }, []);
 
-  return { expenses, error, isLoading }
+  return { expenses, error, isLoading };
 };
 
 export default useExpenses;

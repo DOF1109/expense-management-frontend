@@ -2,7 +2,12 @@ import { Box, Typography } from "@mui/material";
 import DateUtil from "../../utils/DateUtil";
 import CurrencyUtil from "../../utils/CurrencyUtil";
 
-const DashboardStatus = () => {
+interface Props {
+  loggedInUser: string;
+  totalExpenses: number;
+}
+
+const DashboardStatus = ({ loggedInUser, totalExpenses }: Props) => {
   return (
     <Box
       sx={{
@@ -15,12 +20,8 @@ const DashboardStatus = () => {
     >
       <Typography>
         Hola{" "}
-        <Typography
-          component="span"
-          color="primary"
-          fontWeight={600}
-        >
-          Usuario
+        <Typography component="span" color="primary" fontWeight={600}>
+          {loggedInUser}
         </Typography>
         !
       </Typography>
@@ -30,7 +31,9 @@ const DashboardStatus = () => {
         <Typography component="h1" variant="h6" fontWeight={600}>
           Gastos del mes
         </Typography>
-        <Typography variant="h6">{CurrencyUtil.formatToArs(150000)}</Typography>
+        <Typography variant="h6">
+          {CurrencyUtil.formatToArs(totalExpenses)}
+        </Typography>
       </Box>
       <Typography>{DateUtil.getFormatedDate(new Date())}</Typography>
     </Box>

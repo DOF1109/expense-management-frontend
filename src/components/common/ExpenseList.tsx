@@ -28,17 +28,14 @@ const ExpenseList = ({ expenses }: Props) => {
 
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 330 }} aria-label="Expenses table">
+      <Table sx={{ minWidth: 330 }} aria-label="Tabala de gastos">
         <TableHead>
           <TableRow>
             <StyledTableCell align="center">
-              <Typography fontWeight={600}>Expense</Typography>
+              <Typography fontWeight={600}>Gasto</Typography>
             </StyledTableCell>
             <StyledTableCell align="center">
-              <Typography fontWeight={600}>Amount</Typography>
-            </StyledTableCell>
-            <StyledTableCell align="center">
-              <Typography fontWeight={600}>Date</Typography>
+              <Typography fontWeight={600}>Monto</Typography>
             </StyledTableCell>
           </TableRow>
         </TableHead>
@@ -47,13 +44,17 @@ const ExpenseList = ({ expenses }: Props) => {
             return (
               <TableRow key={expense.expenseId}>
                 <TableCell component="th" scope="row" align="center">
-                  {expense.name}
+                  <Typography>{expense.name}</Typography>
+                  <Typography
+                    variant="caption"
+                    color="text.secondary"
+                    sx={{ fontStyle: "italic" }}
+                  >
+                    {DateUtil.getFormatedDate(expense.date)}
+                  </Typography>
                 </TableCell>
                 <TableCell align="center">
                   {CurrencyUtil.formatToArs(expense.amount)}
-                </TableCell>
-                <TableCell align="center">
-                  {DateUtil.getFormatedDate(expense.date)}
                 </TableCell>
               </TableRow>
             );

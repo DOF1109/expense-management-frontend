@@ -13,6 +13,7 @@ import {
 import { Expense } from "../../model/Expense";
 import DateUtil from "../../utils/DateUtil";
 import CurrencyUtil from "../../utils/CurrencyUtil";
+import { Link } from "react-router-dom";
 
 interface Props {
   expenses: Expense[];
@@ -42,7 +43,13 @@ const ExpenseList = ({ expenses }: Props) => {
         <TableBody>
           {expenses.map((expense) => {
             return (
-              <TableRow key={expense.expenseId}>
+              <TableRow
+                key={expense.expenseId}
+                hover
+                component={Link}
+                to={`/details/${expense.expenseId}`}
+                sx={{ textDecoration: "none" }}
+              >
                 <TableCell component="th" scope="row" align="center">
                   <Typography>{expense.name}</Typography>
                   <Typography

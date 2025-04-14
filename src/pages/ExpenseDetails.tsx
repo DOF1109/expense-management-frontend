@@ -1,27 +1,20 @@
 import { Box, Button, Grid, Paper, Typography } from "@mui/material";
-import { useParams } from "react-router-dom";
-import { getExpenseByExpenseId } from "../services/expense-service";
-import { useEffect, useState } from "react";
-import { Expense } from "../model/Expense";
+import { Link, useParams } from "react-router-dom";
 import CurrencyUtil from "../utils/CurrencyUtil";
 import DateUtil from "../utils/DateUtil";
+import useExpenseByExpenseId from "../hooks/useExpenseByExpenseId";
 
 const ExpenseDetails = () => {
   const { expenseId } = useParams<{ expenseId: string }>();
-  const [expense, setExpense] = useState<Expense | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  if (!expenseId) {
+    return (
+      <Typography color="error" textAlign="center" my={3}>
+        Invalid expense ID
+      </Typography>
+    );
+  }
 
-  useEffect(() => {
-    if (expenseId) {
-      getExpenseByExpenseId(expenseId)
-        .then((response) => {
-          setExpense(response.data);
-        })
-        .catch((error) => setError(error.message))
-        .finally(() => setIsLoading(false));
-    }
-  }, []);
+  const { expense, error, isLoading } = useExpenseByExpenseId(expenseId);
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 2, my: 4 }}>
@@ -30,7 +23,11 @@ const ExpenseDetails = () => {
       <Box
         sx={{ display: "flex", gap: 1, justifyContent: "end", width: "100%" }}
       >
-        <Button variant="contained">Atras</Button>
+        <Button variant="contained">
+          <Link className="blank-link" to="/">
+            Atras
+          </Link>
+        </Button>
         <Button variant="contained" color="warning">
           Editar
         </Button>
@@ -45,21 +42,26 @@ const ExpenseDetails = () => {
             <Typography fontWeight={600}>Nombre:</Typography>
           </Grid>
           <Grid size={6}>
-            <Typography textAlign="center">{expense?.name}</Typography>
+            <Typography textAlign="center">
+              {expense ? expense.name : "No disponible"}
+            </Typography>
           </Grid>
           <Grid size={6} textAlign="center">
             <Typography fontWeight={600}>Categoría:</Typography>
           </Grid>
           <Grid size={6}>
-            <Typography textAlign="center">{expense?.category}</Typography>
+            <Typography textAlign="center">
+              {expense ? expense.category : "No disponible"}
+            </Typography>
           </Grid>
           <Grid size={6} textAlign="center">
             <Typography fontWeight={600}>Monto:</Typography>
           </Grid>
           <Grid size={6}>
             <Typography textAlign="center">
-              {/* Add 0 by default or the value from API */}
-              {CurrencyUtil.formatToArs(expense?.amount ?? 0)}
+              {expense
+                ? CurrencyUtil.formatToArs(expense.amount)
+                : "No disponible"}
             </Typography>
           </Grid>
           <Grid size={6} textAlign="center">
@@ -67,15 +69,18 @@ const ExpenseDetails = () => {
           </Grid>
           <Grid size={6}>
             <Typography textAlign="center">
-              {/* Add today's date by default or the value from API */}
-              {DateUtil.getFormatedDate(expense?.date ?? new Date())}
+              {expense
+                ? DateUtil.getFormatedDate(expense.date)
+                : "No disponible"}
             </Typography>
           </Grid>
           <Grid size={6} textAlign="center">
             <Typography fontWeight={600}>Nota:</Typography>
           </Grid>
           <Grid size={6}>
-            <Typography textAlign="center">{expense?.note}</Typography>
+            <Typography textAlign="center">
+              {expense ? expense.note : "No disponible"}
+            </Typography>
           </Grid>
         </Grid>
       </Paper>

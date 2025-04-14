@@ -13,13 +13,15 @@ import {
 import { Expense } from "../../model/Expense";
 import DateUtil from "../../utils/DateUtil";
 import CurrencyUtil from "../../utils/CurrencyUtil";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   expenses: Expense[];
 }
 
 const ExpenseList = ({ expenses }: Props) => {
+  const navigate = useNavigate();
+
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
       backgroundColor: theme.palette.primary.main,
@@ -46,9 +48,8 @@ const ExpenseList = ({ expenses }: Props) => {
               <TableRow
                 key={expense.expenseId}
                 hover
-                component={Link}
-                to={`/details/${expense.expenseId}`}
-                sx={{ textDecoration: "none" }}
+                onClick={() => navigate(`/details/${expense.expenseId}`)}
+                sx={{ cursor: "pointer" }}
               >
                 <TableCell component="th" scope="row" align="center">
                   <Typography>{expense.name}</Typography>

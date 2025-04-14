@@ -4,8 +4,8 @@ import { getExpenses } from "../services/expense-service";
 
 const useExpenses = () => {
   const [expenses, setExpenses] = useState<Expense[]>([]);
-  const [error, setError] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     getExpenses()
@@ -16,7 +16,7 @@ const useExpenses = () => {
       .finally(() => setIsLoading(false));
   }, []);
 
-  return { expenses, error, isLoading }
+  return { expenses, error, isLoading };
 };
 
 export default useExpenses;

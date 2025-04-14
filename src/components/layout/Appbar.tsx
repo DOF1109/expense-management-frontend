@@ -8,6 +8,7 @@ import {
   MenuItem,
   Toolbar,
   Tooltip,
+  useTheme,
 } from "@mui/material";
 import { MouseEvent, useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -16,6 +17,7 @@ import Logo from "../common/Logo";
 import { NavLink } from "react-router-dom";
 
 const Appbar = () => {
+  const theme = useTheme();
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
@@ -72,17 +74,35 @@ const Appbar = () => {
               sx={{ display: { xs: "block", md: "none" } }}
             >
               <MenuItem onClick={handleCloseNavMenu}>
-                <NavLink className="blank-link" to="/">
+                <NavLink
+                  className="blank-link"
+                  to="/"
+                  style={({ isActive }) => ({
+                    fontWeight: isActive ? 600 : 400,
+                  })}
+                >
                   Tablero
                 </NavLink>
               </MenuItem>
               <MenuItem onClick={handleCloseNavMenu}>
-                <NavLink className="blank-link" to="/new">
+                <NavLink
+                  className="blank-link"
+                  to="/new"
+                  style={({ isActive }) => ({
+                    fontWeight: isActive ? 600 : 400,
+                  })}
+                >
                   Nuevo gasto
                 </NavLink>
               </MenuItem>
               <MenuItem onClick={handleCloseNavMenu}>
-                <NavLink className="blank-link" to="/reports">
+                <NavLink
+                  className="blank-link"
+                  to="/reports"
+                  style={({ isActive }) => ({
+                    fontWeight: isActive ? 600 : 400,
+                  })}
+                >
                   Reportes
                 </NavLink>
               </MenuItem>
@@ -105,7 +125,14 @@ const Appbar = () => {
                 textTransform: "none",
               }}
             >
-              <NavLink className="blank-link" to="/">
+              <NavLink
+                className="blank-link"
+                to="/"
+                style={({ isActive }) => ({
+                  fontWeight: isActive ? 600 : 400,
+                  color: isActive ? theme.palette.secondary.main : "inherit",
+                })}
+              >
                 Tablero
               </NavLink>
             </Button>
@@ -118,7 +145,14 @@ const Appbar = () => {
                 textTransform: "none",
               }}
             >
-              <NavLink className="blank-link" to="/new">
+              <NavLink
+                className="blank-link"
+                to="/new"
+                style={({ isActive }) => ({
+                  fontWeight: isActive ? 600 : 400,
+                  color: isActive ? theme.palette.secondary.main : "inherit",
+                })}
+              >
                 Nuevo gasto
               </NavLink>
             </Button>
@@ -131,7 +165,14 @@ const Appbar = () => {
                 textTransform: "none",
               }}
             >
-              <NavLink className="blank-link" to="/reports">
+              <NavLink
+                className="blank-link"
+                to="/reports"
+                style={({ isActive }) => ({
+                  fontWeight: isActive ? 600 : 400,
+                  color: isActive ? theme.palette.secondary.main : "inherit",
+                })}
+              >
                 Reportes
               </NavLink>
             </Button>

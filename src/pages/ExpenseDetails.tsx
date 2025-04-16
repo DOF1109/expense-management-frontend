@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import CurrencyUtil from "../utils/CurrencyUtil";
 import DateUtil from "../utils/DateUtil";
 import useExpenseByExpenseId from "../hooks/useExpenseByExpenseId";
+import ConfirmDialog from "../components/common/ConfirmDialog";
 
 const ExpenseDetails = () => {
   const { expenseId } = useParams<{ expenseId: string }>();
@@ -84,6 +85,7 @@ const ExpenseDetails = () => {
           </Grid>
         </Grid>
       </Paper>
+      <ConfirmDialog title="Confirmar eliminación" message="Seguro que desea eliminar el gasto?" show={true} />
     </Box>
   );
 };

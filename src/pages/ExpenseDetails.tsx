@@ -4,6 +4,7 @@ import CurrencyUtil from "../utils/CurrencyUtil";
 import DateUtil from "../utils/DateUtil";
 import useExpenseByExpenseId from "../hooks/useExpenseByExpenseId";
 import ConfirmDialog from "../components/common/ConfirmDialog";
+import { useState } from "react";
 
 const ExpenseDetails = () => {
   const { expenseId } = useParams<{ expenseId: string }>();
@@ -16,6 +17,19 @@ const ExpenseDetails = () => {
   }
 
   const { expense, error, isLoading } = useExpenseByExpenseId(expenseId);
+  const [showConfirmDialog, setShowConfirmDialog] = useState<boolean>(false);
+
+  const handleCancelDialog = () => {
+    setShowConfirmDialog(false);
+  };
+
+  const handleConfirmDialog = () => {
+    setShowConfirmDialog(false);
+  };
+
+  const handleDeleteBtn = () => {
+    setShowConfirmDialog(true);
+  };
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 2, my: 4 }}>
@@ -32,7 +46,7 @@ const ExpenseDetails = () => {
         <Button variant="contained" color="warning">
           Editar
         </Button>
-        <Button variant="contained" color="error">
+        <Button color="error" onClick={handleDeleteBtn} variant="contained">
           Eliminar
         </Button>
       </Box>
@@ -85,7 +99,12 @@ const ExpenseDetails = () => {
           </Grid>
         </Grid>
       </Paper>
-      <ConfirmDialog title="Confirmar eliminación" message="Seguro que desea eliminar el gasto?" show={true} />
+      <ConfirmDialog
+        title="¿Seguro que desea eliminar el gasto?"
+        show={showConfirmDialog}
+        onCancel={handleCancelDialog}
+        onConfirm={handleConfirmDialog}
+      />
     </Box>
   );
 };

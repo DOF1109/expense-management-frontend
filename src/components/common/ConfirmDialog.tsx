@@ -1,42 +1,32 @@
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-} from "@mui/material";
-import { useState } from "react";
+import { Button, Dialog, DialogActions, DialogTitle } from "@mui/material";
 
 interface ConfirmDialogProps {
   title: string;
-  message: string;
   show: boolean;
+  onCancel: () => void;
+  onConfirm: () => void;
 }
 
-const ConfirmDialog = ({ title, message, show }: ConfirmDialogProps) => {
-  const [open, setOpen] = useState(show);
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
+const ConfirmDialog = ({
+  title,
+  show,
+  onCancel,
+  onConfirm,
+}: ConfirmDialogProps) => {
   return (
     <Dialog
-      open={open}
-      onClose={handleClose}
+      open={show}
+      onClose={onCancel}
       aria-labelledby="alert-dialog-title"
-      aria-describedby="alert-dialog-description"
+      disableEnforceFocus
+      disableRestoreFocus
     >
       <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
-      <DialogContent>
-        <DialogContentText id="alert-dialog-description">
-          {message}
-        </DialogContentText>
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={handleClose}>Cancelar</Button>
-        <Button onClick={handleClose} autoFocus>
+      <DialogActions sx={{ justifyContent: "center", gap: 1, mb: 1 }}>
+        <Button onClick={onCancel} variant="contained" color="error">
+          Cancelar
+        </Button>
+        <Button onClick={onConfirm} variant="contained" color="success">
           Confirmar
         </Button>
       </DialogActions>

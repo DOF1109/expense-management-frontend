@@ -1,8 +1,13 @@
 import { Box, Button, Grid, Paper, Typography } from "@mui/material";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import CurrencyUtil from "../utils/CurrencyUtil";
 import DateUtil from "../utils/DateUtil";
 import useExpenseByExpenseId from "../hooks/useExpenseByExpenseId";
+import ConfirmDialog from "../components/common/ConfirmDialog";
+import { useEffect, useState } from "react";
+import { deleteExpenseByExpenseId } from "../services/expense-service";
+import Loading from "../components/common/Loading";
+import ErrorMessage from "../components/common/ErrorMessage";
 
 const ExpenseDetails = () => {
   const { expenseId } = useParams<{ expenseId: string }>();
@@ -14,12 +19,51 @@ const ExpenseDetails = () => {
     );
   }
 
-  const { expense, error, isLoading } = useExpenseByExpenseId(expenseId);
+  const { expense, error, isLoading, setError, setIsLoading } =
+    useExpenseByExpenseId(expenseId);
+  const [showConfirmDialog, setShowConfirmDialog] = useState<boolean>(false);
+  const [showError, setShowError] = useState<boolean>(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (error) {
+      setShowError(true);
+    }
+  }, [error])
+
+  const handleCancelDialog = () => {
+    setShowConfirmDialog(false);
+  };
+
+  const handleConfirmDialog = () => {
+    setIsLoading(true);
+    deleteExpenseByExpenseId(expenseId)
+      .then((response) => {
+        if (response.status === 204) navigate("/");
+      })
+      .catch((error) => {
+        setError(error.message);
+      })
+      .finally(() => {
+        setIsLoading(false);
+        setShowConfirmDialog(false);
+      });
+  };
+
+  const handleDeleteBtn = () => {
+    setShowConfirmDialog(true);
+  };
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 2, my: 4 }}>
-      {isLoading && <Typography>Loading...</Typography>}
-      {error && <Typography color="error">{error}</Typography>}
+      {isLoading && <Loading />}
+      {error && (
+        <ErrorMessage
+          message={error}
+          showError={showError}
+          setShowError={setShowError}
+        />
+      )}
       <Box
         sx={{ display: "flex", gap: 1, justifyContent: "end", width: "100%" }}
       >
@@ -31,7 +75,7 @@ const ExpenseDetails = () => {
         <Button variant="contained" color="warning">
           Editar
         </Button>
-        <Button variant="contained" color="error">
+        <Button color="error" onClick={handleDeleteBtn} variant="contained">
           Eliminar
         </Button>
       </Box>
@@ -84,6 +128,12 @@ const ExpenseDetails = () => {
           </Grid>
         </Grid>
       </Paper>
+      <ConfirmDialog
+        title="¿Seguro que desea eliminar el gasto?"
+        show={showConfirmDialog}
+        onCancel={handleCancelDialog}
+        onConfirm={handleConfirmDialog}
+      />
     </Box>
   );
 };

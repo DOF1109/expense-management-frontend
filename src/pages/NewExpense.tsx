@@ -4,6 +4,8 @@ import { useFormik } from "formik";
 import { Expense } from "../model/Expense";
 import expenseValidationSchema from "../validation/expenseValidationSchema";
 import dayjs from "dayjs";
+import CategoryDropdown from "../components/common/CategoryDropdown";
+import { expenseCategories } from "../utils/AppConstants";
 
 const NewExpense = () => {
   const formik = useFormik({
@@ -63,7 +65,10 @@ const NewExpense = () => {
                 name: "date",
                 fullWidth: true,
                 error: formik.errors.date ? true : false,
-                helperText: typeof formik.errors.date === "string" ? formik.errors.date : undefined,
+                helperText:
+                  typeof formik.errors.date === "string"
+                    ? formik.errors.date
+                    : undefined,
               },
             }}
           />
@@ -78,6 +83,9 @@ const NewExpense = () => {
             error={formik.errors.category ? true : false}
             helperText={formik.errors.category}
           />
+        </Grid>
+        <Grid size={{ xs: 12, sm: 9, md: 8, lg: 7 }}>
+          <CategoryDropdown categories={expenseCategories} />
         </Grid>
         <Grid size={{ xs: 12, sm: 9, md: 8, lg: 7 }}>
           <TextField

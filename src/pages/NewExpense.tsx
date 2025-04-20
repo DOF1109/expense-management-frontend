@@ -2,18 +2,15 @@ import { Box, Button, Grid, TextField } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
 import { useFormik } from "formik";
 import { Expense } from "../model/Expense";
-import * as Yup from "yup";
-
-const expenseValidationSchema = Yup.object({
-  name: Yup.string().required("El nombre es requerido"),
-});
+import expenseValidationSchema from "../validation/expenseValidationSchema";
+import dayjs from "dayjs";
 
 const NewExpense = () => {
   const formik = useFormik({
     initialValues: {
       name: "",
       amount: 0,
-      date: new Date(),
+      date: dayjs(),
       category: "",
       note: "",
     },
@@ -51,10 +48,25 @@ const NewExpense = () => {
             fullWidth
             onChange={formik.handleChange}
             type="number"
+            error={formik.errors.amount ? true : false}
+            helperText={formik.errors.amount}
           />
         </Grid>
         <Grid size={{ xs: 12, sm: 9, md: 8, lg: 7 }}>
-          <DatePicker name="date" label="Fecha" />
+          <DatePicker
+            label="Fecha"
+            disableFuture
+            value={formik.values.date}
+            onChange={(value) => formik.setFieldValue("date", value)}
+            slotProps={{
+              textField: {
+                name: "date",
+                fullWidth: true,
+                error: formik.errors.date ? true : false,
+                helperText: typeof formik.errors.date === "string" ? formik.errors.date : undefined,
+              },
+            }}
+          />
         </Grid>
         <Grid size={{ xs: 12, sm: 9, md: 8, lg: 7 }}>
           <TextField
@@ -63,6 +75,8 @@ const NewExpense = () => {
             variant="outlined"
             fullWidth
             onChange={formik.handleChange}
+            error={formik.errors.category ? true : false}
+            helperText={formik.errors.category}
           />
         </Grid>
         <Grid size={{ xs: 12, sm: 9, md: 8, lg: 7 }}>
@@ -74,6 +88,8 @@ const NewExpense = () => {
             onChange={formik.handleChange}
             multiline
             rows={5}
+            error={formik.errors.note ? true : false}
+            helperText={formik.errors.note}
           />
         </Grid>
         <Grid

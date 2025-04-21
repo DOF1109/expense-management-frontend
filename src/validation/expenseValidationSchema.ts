@@ -13,14 +13,10 @@ const expenseValidationSchema = Yup.object({
   date: Yup.mixed()
     .test("is-dayjs", "La fecha no es válida", (value) => isDayjs(value))
     .required("La fecha es requerida"),
-  category: Yup.string()
-    .trim()
-    .required("La categoría es requerida")
-    .min(3, "La categoría debe tener al menos 3 caracteres")
-    .max(50, "La categoría no puede tener más de 50 caracteres"),
+  category: Yup.string().required("La categoría es requerida"),
   note: Yup.string()
     .trim()
     .max(200, "La nota no puede tener más de 200 caracteres"),
 });
 
-export default expenseValidationSchema
+export default expenseValidationSchema;

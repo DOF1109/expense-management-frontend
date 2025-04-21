@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import { Expense } from "../model/Expense";
 import expenseValidationSchema from "../validation/expenseValidationSchema";
 import dayjs from "dayjs";
-import CategoryDropdown from "../components/common/CategoryDropdown";
+import Dropdown from "../components/common/Dropdown";
 import { expenseCategories } from "../utils/AppConstants";
 
 const NewExpense = () => {
@@ -48,8 +48,9 @@ const NewExpense = () => {
             label="Monto del gasto"
             variant="outlined"
             fullWidth
-            onChange={formik.handleChange}
             type="number"
+            onChange={formik.handleChange}
+            value={formik.values.amount}
             error={formik.errors.amount ? true : false}
             helperText={formik.errors.amount}
           />
@@ -74,18 +75,16 @@ const NewExpense = () => {
           />
         </Grid>
         <Grid size={{ xs: 12, sm: 9, md: 8, lg: 7 }}>
-          <TextField
+          <Dropdown
+            options={expenseCategories}
             name="category"
             label="Categoría del gasto"
-            variant="outlined"
-            fullWidth
-            onChange={formik.handleChange}
+            id="category"
+            value={formik.values.category}
             error={formik.errors.category ? true : false}
             helperText={formik.errors.category}
+            onChange={formik.handleChange}
           />
-        </Grid>
-        <Grid size={{ xs: 12, sm: 9, md: 8, lg: 7 }}>
-          <CategoryDropdown categories={expenseCategories} />
         </Grid>
         <Grid size={{ xs: 12, sm: 9, md: 8, lg: 7 }}>
           <TextField

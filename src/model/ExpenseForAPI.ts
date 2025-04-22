@@ -1,11 +1,9 @@
-import { Dayjs } from "dayjs";
-
-export interface Expense {
+export interface ExpenseForAPI {
   id?: number;
   expenseId?: string;
   name: string;
   note: string;
   amount: number;
-  date: Dayjs;
+  date: Date;
   category: string;
 }

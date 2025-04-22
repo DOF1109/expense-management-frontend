@@ -1,7 +1,6 @@
 import { Box, Button, Grid, Paper, Typography } from "@mui/material";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import CurrencyUtil from "../utils/CurrencyUtil";
-import DateUtil from "../utils/DateUtil";
 import useExpenseByExpenseId from "../hooks/useExpenseByExpenseId";
 import ConfirmDialog from "../components/common/ConfirmDialog";
 import { useEffect, useState } from "react";
@@ -29,7 +28,7 @@ const ExpenseDetails = () => {
     if (error) {
       setShowError(true);
     }
-  }, [error])
+  }, [error]);
 
   const handleCancelDialog = () => {
     setShowConfirmDialog(false);
@@ -113,9 +112,7 @@ const ExpenseDetails = () => {
           </Grid>
           <Grid size={6}>
             <Typography textAlign="center">
-              {expense
-                ? DateUtil.getFormatedDate(expense.date)
-                : "No disponible"}
+              {expense ? expense.date.format("DD/MM/YYYY") : "No disponible"}
             </Typography>
           </Grid>
           <Grid size={6} textAlign="center">

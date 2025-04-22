@@ -4,6 +4,9 @@
 * Axios
 * React Router
 * Material UI
+* Formik
+* Yup
+* Date Picker and Dayjs from MUI X
 
 ### 02. Configure Axios
 * Configure the API base URL and export the module
@@ -18,10 +21,14 @@
 ### 05. Create custom hook to fetch the expenses from API
 
 ### 06. Create necesary components
+* Common components
+* Layout components
 
 ### 07. Create global styles
+* index.css
+* themeConfig.ts
 
 ### 08. Configure the Router
 * Use NavLink to navigate different pages
 
-### 09. Create Utils for date managment
+### 09. Create Utils for date and currency managment

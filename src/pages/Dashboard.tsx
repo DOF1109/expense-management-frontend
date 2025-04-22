@@ -1,4 +1,4 @@
-import { Container, Typography } from "@mui/material";
+import { Container } from "@mui/material";
 import ExpenseList from "../components/common/ExpenseList";
 import useExpenses from "../hooks/useExpenses";
 import DashboardStatus from "../components/layout/DashboardStatus";

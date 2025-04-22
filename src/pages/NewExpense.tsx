@@ -6,8 +6,22 @@ import expenseValidationSchema from "../validation/expenseValidationSchema";
 import dayjs from "dayjs";
 import Dropdown from "../components/common/Dropdown";
 import { expenseCategories } from "../utils/AppConstants";
+import { useEffect, useState } from "react";
+import { saveExpense } from "../services/expense-service";
+import ErrorMessage from "../components/common/ErrorMessage";
+import { useNavigate } from "react-router-dom";
 
 const NewExpense = () => {
+  const [showError, setShowError] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (error) {
+      setShowError(true);
+    }
+  }, [error]);
+
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -17,13 +31,29 @@ const NewExpense = () => {
       note: "",
     },
     onSubmit: (values: Expense) => {
-      console.log(values);
+      saveExpense(values)
+        .then((response) => {
+          if (response.status === 201) {
+            navigate("/");
+          }
+        })
+        .catch((error) => {
+          setShowError(true);
+          setError(error.message);
+        });
     },
     validationSchema: expenseValidationSchema,
   });
 
   return (
     <Box component="section">
+      {error && (
+        <ErrorMessage
+          message={error}
+          showError={showError}
+          setShowError={setShowError}
+        />
+      )}
       <Grid
         container
         component="form"

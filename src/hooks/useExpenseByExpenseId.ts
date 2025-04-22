@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getExpenseByExpenseId } from "../services/expense-service";
 import { Expense } from "../model/Expense";
+import dayjs from "dayjs";
 
 const useExpenseByExpenseId = (expenseId: string) => {
   const [expense, setExpense] = useState<Expense | null>(null);
@@ -10,6 +11,8 @@ const useExpenseByExpenseId = (expenseId: string) => {
   useEffect(() => {
     getExpenseByExpenseId(expenseId)
       .then((response) => {
+        // Convert the date field to a Dayjs object
+        response.data.date = dayjs(response.data.date)
         setExpense(response.data);
       })
       .catch((error) => {

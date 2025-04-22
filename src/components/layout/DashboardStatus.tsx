@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
-import DateUtil from "../../utils/DateUtil";
 import CurrencyUtil from "../../utils/CurrencyUtil";
+import dayjs from "dayjs";
 
 interface Props {
   loggedInUser: string;
@@ -35,7 +35,7 @@ const DashboardStatus = ({ loggedInUser, totalExpenses }: Props) => {
           {CurrencyUtil.formatToArs(totalExpenses)}
         </Typography>
       </Box>
-      <Typography>{DateUtil.getFormatedDate(new Date())}</Typography>
+      <Typography>{dayjs().format("DD/MM/YYYY")}</Typography>
     </Box>
   );
 };

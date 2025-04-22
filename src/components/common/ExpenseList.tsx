@@ -11,7 +11,6 @@ import {
   Typography,
 } from "@mui/material";
 import { Expense } from "../../model/Expense";
-import DateUtil from "../../utils/DateUtil";
 import CurrencyUtil from "../../utils/CurrencyUtil";
 import { useNavigate } from "react-router-dom";
 
@@ -58,7 +57,7 @@ const ExpenseList = ({ expenses }: Props) => {
                     color="text.secondary"
                     sx={{ fontStyle: "italic" }}
                   >
-                    {DateUtil.getFormatedDate(expense.date)}
+                    {expense.date.format("DD/MM/YYYY")}
                   </Typography>
                 </TableCell>
                 <TableCell align="center">

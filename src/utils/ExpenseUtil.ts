@@ -1,5 +1,5 @@
 import { Expense } from "../model/Expense";
-import ExpenseForAPI from "../model/ExpenseForAPI";
+import { ExpenseForAPI } from "../model/ExpenseForAPI";
 
 class ExpenseUtil {
 
